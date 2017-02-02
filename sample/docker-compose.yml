@@ -1,0 +1,39 @@
+# This docker-compose yml describe the services to run locally
+version: '2'
+
+# Defines the services
+services:
+  # This is our node application producing events send to kinesis
+  app:
+    build: ./app
+    # Here we mount the aws crentials from our host
+    volumes:
+      - "$HOME/.aws:/root/.aws"
+    # We are waiting for kinesis availability
+    entrypoint: dockerize -wait tcp://kinesis:4567 -timeout 10s
+    command: node app.js
+
+  # This is a container creating the Kinesis stream
+  stream:
+    build: ./stream
+    # Here we mount the aws crentials from our host
+    volumes:
+      - "$HOME/.aws:/root/.aws"
+    # We are waiting for kinesis availability
+    entrypoint: dockerize -wait tcp://kinesis:4567 -timeout 10s
+    command: node create-stream.js
+
+  # This is our Kinesis-like based on Kinesalite
+  kinesis:
+    build: ./kinesis
+    ports:
+      - 4567
+    command: node kinesalite.js --port 4567
+
+  # This is our lambda consuming the events coming from Kinesis
+  lambda:
+    build: ./lambda
+    # Here we mount the aws crentials from our host
+    volumes:
+      - "$HOME/.aws:/root/.aws"
+    command: node trigger-lambda.js
