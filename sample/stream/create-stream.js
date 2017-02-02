@@ -8,7 +8,7 @@ function exitOnSignal(signal) {
   process.on(signal, function() {
     console.log('\ncaught ' + signal + ', exiting');
     // perform all required cleanup
-    process.exit(1);
+    process.exit(0);
   });
 }
 
