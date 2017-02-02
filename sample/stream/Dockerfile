@@ -13,4 +13,7 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 ADD create-stream.js /app
 
+# Fake aws credentials
+ADD .aws /root/.aws
+
 CMD ["node", "create-stream.sh"]

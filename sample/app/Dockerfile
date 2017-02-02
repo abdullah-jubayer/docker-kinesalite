@@ -14,6 +14,7 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 ADD app.js /app
 
-EXPOSE 3000
+# Fake aws credentials
+ADD .aws /root/.aws
 
 CMD ["node", "app.js"]

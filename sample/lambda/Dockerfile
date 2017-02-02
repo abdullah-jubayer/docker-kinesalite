@@ -10,3 +10,6 @@ RUN npm install aws-sdk lambda-local moment
 
 ADD trigger-lambda.js /app
 ADD lambda.js /app
+
+# Fake aws credentials
+ADD .aws /root/.aws
