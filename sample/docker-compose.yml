@@ -22,7 +22,7 @@ services:
     build: ../
     ports:
       - 4567
-    command: node kinesalite.js --port 4567
+    command: kinesalite --port 4567
 
   # This is our lambda consuming the events coming from Kinesis
   lambda:

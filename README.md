@@ -14,8 +14,17 @@ In order to run Kinesalite you just have to:
 
 By default Kinesalite listen on port `4567` and the LevelDB database is store in `/db` folder.
 
-This might change and will be more configurable in the future.
+You can customize the other parameters like that: 
 
+```
+> docker run -ti -p 3456 bandsintown/kinesalite kinesalite \
+ --port 3456 \
+ --path /mybd \
+ --createStreamMs 250 \
+ --deleteStreamMs 250 \
+ --updateStreamMs 250 \
+ --shardLimit 5
+```
 
 # Sample
 
